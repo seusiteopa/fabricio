@@ -1,0 +1,17 @@
+# netlify.toml
+#
+# Configuração de deploy para a Netlify. O plugin oficial
+# @netlify/plugin-nextjs traduz automaticamente o App Router (SSR,
+# rotas estáticas, geração de imagem via next/og, etc.) para o
+# runtime da Netlify — não é necessário `output: "export"` nem
+# ajustes manuais de roteamento.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
