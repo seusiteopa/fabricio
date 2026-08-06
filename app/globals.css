@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/**
+ * Design tokens da Vecorion.
+ *
+ * Paleta derivada do logotipo (azul royal + preto + branco).
+ * Base dark-mode fixa (a marca é intencionalmente "dark by default",
+ * não um dark mode alternável) para reforçar o posicionamento
+ * premium/tech definido no briefing.
+ *
+ * A definição fina de tokens de UI (sombras, motion, etc.) pertence
+ * à Etapa 5. Aqui ficam apenas os fundamentos estruturais.
+ *
+ * Nota de acessibilidade (Etapa 6): `--color-primary-hover` (3.99:1
+ * sobre `--color-ink`) é usado apenas em bordas, fundos de botão e
+ * indicadores decorativos, onde o requisito WCAG é 3:1 (1.4.11).
+ * Para TEXTO em corpo pequeno (eyebrows, labels, links), use sempre
+ * `--color-accent` (5.97:1), que atende WCAG AA (1.4.3) com folga.
+ */
+:root {
+  --color-ink: #0a0e17;        /* fundo base */
+  --color-surface: #10151f;    /* cards, header, blocos elevados */
+  --color-surface-hover: #161c29;
+  --color-line: #232a38;       /* bordas e divisores sutis */
+
+  --color-primary: #2b56c6;    /* azul da marca (logo) */
+  --color-primary-hover: #3f6bdb;
+  --color-primary-soft: #16223f;
+  --color-accent: #5b8def;     /* azul claro — uso exclusivo em TEXTO sobre fundo escuro (5.97:1, AA) */
+
+  --color-foreground: #f3f5f9; /* texto principal */
+  --color-muted: #98a2b3;      /* texto secundário */
+
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
+}
+
+@theme inline {
+  --color-ink: var(--color-ink);
+  --color-surface: var(--color-surface);
+  --color-surface-hover: var(--color-surface-hover);
+  --color-line: var(--color-line);
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-soft: var(--color-primary-soft);
+  --color-accent: var(--color-accent);
+  --color-foreground: var(--color-foreground);
+  --color-muted: var(--color-muted);
+
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+}
+
+/* Foco visível consistente para navegação por teclado (WCAG) */
+:focus-visible {
+  outline: 2px solid var(--color-primary-hover);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/*
+ * Utilitários extraídos na Etapa 6 para eliminar duplicação:
+ * `font-display` e `section-py` se
+ * repetiam em praticamente toda seção/página do site. Centralizar
+ * aqui significa que um ajuste de fonte de título ou de respiro
+ * vertical de seção agora é feito em um único lugar.
+ */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.section-py {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 640px) {
+  .section-py {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+/*
+ * Animação de "desenho" do traço do ícone infinito no Hero — o único
+ * elemento de motion elaborado do site (ver components/ui/InfinityMark.tsx).
+ * pathLength=1 no SVG permite usar stroke-dasharray/offset em unidades
+ * normalizadas, independente do tamanho real do path.
+ */
+.vecorion-mark-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-mark 2.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes draw-mark {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vecorion-mark-path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
