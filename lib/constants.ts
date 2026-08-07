@@ -17,8 +17,8 @@ export const siteConfig = {
 } as const;
 
 export const contactInfo = {
-  whatsappNumber: "5519991255529", // formato internacional, sem símbolos
-  whatsappDisplay: "(19) 99125-5529",
+  whatsappNumber: "5519991892801", // formato internacional, sem símbolos
+  whatsappDisplay: "(19) 99189-2801",
   email: null as string | null, // "a definir" no briefing — habilitar quando existir
   instagram: "https://instagram.com/vecorion",
   instagramHandle: "@vecorion",
